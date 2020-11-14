@@ -1,4 +1,5 @@
 import time
+from pathlib import Path
 from stackapi import StackAPI
 import json
 
@@ -31,7 +32,8 @@ def export_json_to_file(posts):
     data = json.dumps(posts, indent=4)
 
     epoch_time = int(time.time())
-    f = open("data" + str(epoch_time) + ".json", "w")
+    Path("data/").mkdir(parents=True, exist_ok=True)
+    f = open("data/data" + str(epoch_time) + ".json", "w")
     f.write(data)
     f.close()
 
