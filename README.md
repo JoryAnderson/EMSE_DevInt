@@ -15,8 +15,9 @@ By Cassandra, Nimmi, Yiming, and Jory.
     d. Format into input file for JGibbLabeledLDA
 
 2. **Use JGibbLabeledLDA to process data**.
+    * Create Java package within this project?
     
-    a. LDA does not label topics. This will need to be done manually.
+    * LDA does not label topics. This will need to be done manually.
     
 3. **Additional statistics**.
 
