@@ -3,6 +3,11 @@ For SENG 480A / UVic EMSE
 
 By Cassandra, Nimmi, Yiming, and Jory.
 
+# Dependencies
+    pip install stackapi
+    
+That's all for now!
+
 #  Tentative Requirements
 1. **Use StackAPI to grab SO data**.
 
