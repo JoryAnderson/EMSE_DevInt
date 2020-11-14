@@ -13,6 +13,7 @@ def get_posts():
     # Adjust returning data
     SITE.page_size = QUERY_SIZE
     SITE.max_pages = NUM_OF_QUERIES
+    SITE.key = 'kBC4LfDjAYFLSEFWyrDhdw(( '
 
     # Get Data
     posts = SITE.fetch('posts')
