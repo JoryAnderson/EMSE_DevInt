@@ -10,8 +10,10 @@ Therefore, the number of results = **QUERY_SIZE * NUM_OF_QUERIES**
 
     posts = SITE.fetch('posts')
 
-Returns the XML data in a dictionary, 'posts' refers to the specified entry point 
-(others include 'comments', 'answers', etc.). Post represents the entire query
+Returns the JSON data in a dictionary, 'posts' refers to the specified entry point 
+(others include 'comments', 'answers', etc.). Post represents the entire query.
+
+The script will export the resulting JSON to the data folder. 
 
 # Specifying Data
     
