@@ -16,7 +16,7 @@ def grab_all_question_ids(data):
 #   list[0] contains the first Q/A text(s)
 #   list[0][0] contains the title of the first question
 #   list[0][1] contains the body of the first question
-#   list[0][n] contains body for any answers which may or may not exist.
+#   list[0][n] contains body for any answers (of the first question) which may or may not exist.
 def get_combined_qa_list(question_data, answer_data, question_ids):
     all_question_answer_text = []
 
