@@ -40,7 +40,7 @@ def get_combined_qa_list(question_data, answer_data, question_ids):
 
 if __name__ == '__main__':
     # Load Question Data
-    question_data = load_json_to_dict('data/data1605387199.json')
+    question_data = load_json_to_dict('data/small_question_sample.json')
     question_ids = grab_all_question_ids(question_data)
     print(question_ids)
 
