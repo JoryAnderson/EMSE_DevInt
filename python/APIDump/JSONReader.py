@@ -11,12 +11,12 @@ def grab_all_question_ids(data):
     return [data['items'][i]['question_id'] for i in range(0, len(data['items']))]
 
 
-# For each question:
-#   Get question title and text
-#   Get the answers for each question
-#   For each answer
-#       Grab each answer text
-#       Append answer text to question title/text
+# get_combined_qa_list
+#   Combines question and answer texts into a list of lists
+#   list[0] contains the first Q/A text(s)
+#   list[0][0] contains the title of the first question
+#   list[0][1] contains the body of the first question
+#   list[0][n] contains body for any answers which may or may not exist.
 def get_combined_qa_list(question_data, answer_data, question_ids):
     all_question_answer_text = []
 
@@ -49,5 +49,7 @@ if __name__ == '__main__':
 
     # Combine question/answer information
     important_text = get_combined_qa_list(question_data, answer_data, question_ids)
-    print(important_text[0])
     print(important_text[1])
+    print(important_text[1][0])
+    print(important_text[1][1])
+    print(important_text[1][2])
