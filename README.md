@@ -13,7 +13,7 @@ That's all for now!
 
     a. Grab maximum questions & answers daily. Do over couple days.
     
-    b. Collate XMLs into single data file.
+    b. Collate JSONs into single data file.
     
     c. Remove duplicates
     
