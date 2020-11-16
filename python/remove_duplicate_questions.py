@@ -1,5 +1,5 @@
-from APIDump import APIDump
-from APIDump import JSONReader
+from lib import APIDump
+from lib import JSONReader
 import sys
 
 if __name__ == '__main__':
