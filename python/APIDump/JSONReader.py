@@ -50,6 +50,6 @@ if __name__ == '__main__':
 
     # Combine question/answer information
     important_text = get_combined_qa_list(question_data, answer_data, question_ids)
-    for x in important_text:
-        print(x)
-        print(important_text.get(x))
+    for question_id in important_text:
+        print(question_id)
+        print(important_text.get(question_id))
