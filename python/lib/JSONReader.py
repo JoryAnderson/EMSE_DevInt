@@ -12,13 +12,9 @@ def grab_all_question_ids(data):
 
 
 # get_combined_qa_list
-#   Combines question and answer texts into a list of lists. Still requires processing.
-#   list[0] contains the first Q/A text(s)
-#   list[0][0] contains the title of the first question
-#   list[0][1] contains the body of the first question
-#   list[0][n] contains body for any answers (of the first question) which may or may not exist.
+#   Combines question and answer texts into a list of lists. Still requires processing. Returns a dictionary
+#   {question_id : [question_title, question_body [answers, empty if none]]}
 def get_combined_qa_list(question_data, answer_data, question_ids):
-    # {question_id : list}
     all_question_answer_text = {}
 
     for question_id in question_ids:
