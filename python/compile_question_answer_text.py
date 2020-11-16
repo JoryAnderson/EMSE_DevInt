@@ -9,7 +9,7 @@ if __name__ == '__main__':
 
     # Get answers using Question Data
     SITE = APIDump.config_api()
-    answer_data = APIDump.get_answers_for_questions(question_ids)
+    answer_data = APIDump.get_answers_for_questions(SITE, question_ids)
 
     # Combine question/answer information
     important_text = JSONReader.get_combined_qa_list(question_data, answer_data, question_ids)
