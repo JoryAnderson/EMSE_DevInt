@@ -3,25 +3,22 @@ from pathlib import Path
 from stackapi import StackAPI
 import json
 
-QUERY_SIZE = 100
-NUM_OF_QUERIES = 250
 
-
-def config_api():
+def config_api(query_size=100, num_of_queries=10):
     SITE = StackAPI('stackoverflow')
     SITE.key = 'kBC4LfDjAYFLSEFWyrDhdw(( '
-    SITE.page_size = QUERY_SIZE
-    SITE.max_pages = NUM_OF_QUERIES
+    SITE.page_size = query_size
+    SITE.max_pages = num_of_queries
 
     return SITE
 
 
-def get_questions():
-    return config_api().fetch(filter='withbody', endpoint='questions')
+def get_questions(SITE):
+    return SITE.fetch(filter='withbody', endpoint='questions')
 
 
-def get_answers_for_questions(question_ids):
-    return config_api().fetch(filter='withbody', endpoint='questions/{ids}/answers', ids=question_ids)
+def get_answers_for_questions(SITE, question_ids):
+    return SITE.fetch(filter='withbody', endpoint='questions/{ids}/answers', ids=question_ids)
 
 
 def convert_dict_to_json(posts):
@@ -40,8 +37,3 @@ def export_json_to_file(posts, file_name='data'):
     f = open("data/" + file_name + str(epoch_time) + ".json", "w")
     f.write(data)
     f.close()
-
-
-if __name__ == '__main__':
-    posts = get_questions()
-    export_json_to_file(posts)
