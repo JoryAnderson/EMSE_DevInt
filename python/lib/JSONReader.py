@@ -31,9 +31,11 @@ def get_combined_qa_list(question_data, answer_data, question_ids):
                 break
 
         for i in range(0, len(answer_data['items'])):
+            answers = []
             if answer_data['items'][i]['question_id'] == question_id:
-                question_text.append(answer_data['items'][i]['body'])
+                answers.append(answer_data['items'][i]['body'])
 
+        question_text.append(answers)
         all_question_answer_text[question_id] = question_text
 
     return all_question_answer_text
