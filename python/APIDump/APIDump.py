@@ -5,28 +5,28 @@ import json
 
 
 def config_api(query_size=100, num_of_queries=10):
-    SITE = StackAPI('stackoverflow')
-    SITE.key = 'kBC4LfDjAYFLSEFWyrDhdw(( '
-    SITE.page_size = query_size
-    SITE.max_pages = num_of_queries
+    site = StackAPI('stackoverflow')
+    site.key = 'kBC4LfDjAYFLSEFWyrDhdw(( '
+    site.page_size = query_size
+    site.max_pages = num_of_queries
 
-    return SITE
-
-
-def get_questions(SITE):
-    return SITE.fetch(filter='withbody', endpoint='questions')
+    return site
 
 
-def get_answers_for_questions(SITE, question_ids):
-    return SITE.fetch(filter='withbody', endpoint='questions/{ids}/answers', ids=question_ids)
+def get_questions(site):
+    return site.fetch(filter='withbody', endpoint='questions')
+
+
+def get_answers_for_questions(site, question_ids):
+    return site.fetch(filter='withbody', endpoint='questions/{ids}/answers', ids=question_ids)
 
 
 def convert_dict_to_json(posts):
     return json.dumps(posts)
 
 
-def convert_json_to_dict(json):
-    return json.loads(json)
+def convert_json_to_dict(json_file):
+    return json.loads(json_file)
 
 
 def export_json_to_file(posts, file_name='data'):
