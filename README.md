@@ -27,9 +27,9 @@ That's all for now!
 3. **Additional statistics**.
 
 # Usage
-[Ad-Hoc Python Scripts](/python/README.md)
+[Ad-Hoc Python Scripts](/python/)
 
-[Grabbing Data](python/lib/README.md)
+[Grabbing Data](python/lib/)
 
 # Resources
 [StackAPI](https://stackapi.readthedocs.io/en/latest/user/intro.html)
