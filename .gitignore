@@ -133,4 +133,4 @@ dmypy.json
 
 # Data folder
 /python/APIDump/data
-/python/data
+/python/data/
