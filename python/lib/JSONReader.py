@@ -41,6 +41,9 @@ def get_combined_qa_list(question_data, answer_data, question_ids):
     return all_question_answer_text
 
 
+# get_question_indices
+#   Get indices for where a question appears in the data set.
+#   Returns a dict: {question_id : [indices, ...]}
 def get_question_indices(questions):
     index_dict = defaultdict(list)
 
@@ -51,6 +54,8 @@ def get_question_indices(questions):
     return index_dict
 
 
+# remove_duplicate_question
+#   Returns a dataset with unique entries (i.e., no more than one instance of any question)
 def remove_duplicate_questions(questions):
     questions = dict(questions)
     curr_questions = len(questions['items'])
