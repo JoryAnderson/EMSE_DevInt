@@ -10,7 +10,7 @@ By Cassandra, Nimmi, Yiming, and Jory.
     pip install stackapi
     
 
-## For Python Notebooks 
+## For Jupyter Notebooks 
 
 
     pip install sklearn
