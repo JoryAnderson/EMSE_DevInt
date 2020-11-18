@@ -10,15 +10,18 @@ import json
 def config_api(query_size=100, num_of_queries=10):
     site = StackAPI('stackoverflow')
     site.key = 'kBC4LfDjAYFLSEFWyrDhdw(( '
-    site.page_size = query_size
-    site.max_pages = num_of_queries
+    site.page_size = int(query_size)
+    site.max_pages = int(num_of_queries)
     return site
 
 
 # get_questions
 #   Returns a dictionary containing questions
-def get_questions(site):
-    return site.fetch(filter='withbody', endpoint='questions')
+def get_questions(site, to_date=None):
+    if to_date is None:
+        return site.fetch(filter='withbody', endpoint='questions')
+    else:
+        return site.fetch(filter='withbody', endpoint='questions', todate=to_date)
 
 
 # get_answers_for_questions
