@@ -5,22 +5,23 @@ By Cassandra, Nimmi, Yiming, and Jory.
 
 # Dependencies
 * For Python library
-    
-    
+
+
     pip install stackapi
-    
-    
+
+
 * For Python Notebooks 
+
     * conda alternatively if using Jupyter environments
 
-    
+
     pip install sklearn
-    
+
     pip install numpy
-    
+
     pip install nltk
-    
-    
+
+
 That's all for now!
 
 #  Tentative Requirements
