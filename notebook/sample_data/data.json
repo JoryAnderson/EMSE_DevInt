@@ -1,0 +1,32 @@
+[
+    {
+        "link": "https://stackoverflow.com/questions/64879299/how-to-escape-hyphen-using-the-groovy-language",
+        "title": "How to escape - (hyphen) using the groovy language"
+        "text": "I am trying to declare a variable that requires hyphen as part of the design spec. However, i am getting this error - https://www.tutorialspoint.com/execute_groovy_online.php",
+        "code-snippets": [
+            "def user-svc = \"accounts\"",
+            "$groovy main.groovy \n Hello world \n Caught: groovy.lang.MissingPropertyException: No such property: user for class: main \n groovy.lang.MissingPropertyException: No such property: user for class: main \n at main.run(main.groovy:3)"
+        ],
+        "tags": [
+            "jenkins",
+            "groovy",
+            "jenkins-pipeline",
+            "jenkins-plugins",
+            "groovyshell"
+        ]
+    },
+    {
+        "link": "https://stackoverflow.com/questions/64881260/is-there-a-vectorized-way-of-getting-the-closest-smaller-or-equal-than-value-f",
+        "title": "Is there a vectorized way of getting the closest (smaller or equal than) value from a list of unique values for each row?",
+        "text": "Suppose I have a DataFrame with a column that has some integers: and a list of unique years: For each item in the column A, I want to get the closest value from years. However, this value has to be smaller or equal than the respective item in column A. I could use min() with a lambda and use apply() to get the year for each row. I am wondering if there is any vectorized way of doing this? I want to end up with a DataFrame like this:",
+        "code-snippets": [
+            ">>> df = pd.DataFrame({"A": [2010, 1963, 2014, 1998, 2004, 2010]}) \n >>> df \n A \n 0  2010 \n 1  1963 \n 2  2014 \n 3  1998 \n 4  2004 \n 5  2010"
+            ">>> years = [1964, 1973, 1985, 1993, 2003, 2004, 2011]"
+            ">>> df["B"] = some_func(df["B"], years) \n >>> df \n      A     B \n 0  2010  2004 \n 1  1963   NaN  # There is not a smaller or equal value than 1963 in years \n 2  2014  2011 \n 3  1998  1993 \n 4  2004  2004 \n 5  2010  2004"
+        ],
+        "tags": [
+            "python",
+            "pandas"
+        ]
+    }
+]
