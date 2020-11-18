@@ -8,16 +8,20 @@ By Cassandra, Nimmi, Yiming, and Jory.
 
 
     pip install stackapi
+    
 
 * For Python Notebooks 
-  * conda alternatively if using Jupyter environments
+    * conda alternatively if using Jupyter environments
 
 
     pip install sklearn
 
+
     pip install numpy
 
+
     pip install nltk
+
 
 That's all for now!
 
