@@ -22,3 +22,6 @@ appropriately. Returns a dictionary {question_id : list}.
 * For a given dataset, this keeps one of each question, removing duplicates.
 
 * Places resulting data inside data folder, labeled 'nodupe'
+
+## split_text_code.py
+* Split body in post into text and code block(s).
