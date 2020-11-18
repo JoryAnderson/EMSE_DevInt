@@ -55,6 +55,7 @@ def get_question_indices(questions):
 def remove_duplicate_questions(questions):
     questions = dict(questions)
     curr_questions = len(questions['items'])
+    print("Original number of questions: " + str(curr_questions))
 
     index_dict = get_question_indices(questions)
     for question_id in index_dict:
@@ -67,5 +68,7 @@ def remove_duplicate_questions(questions):
     for index in sorted(joined_index_list, reverse=True):
         del questions['items'][index]
 
-    print("Total deleted questions: " + str(curr_questions - len(questions['items'])))
+    curr_questions = len(questions['items'])
+    print("Number of unique questions: " + str(curr_questions))
+
     return questions
