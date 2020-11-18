@@ -4,14 +4,13 @@ For SENG 480A / UVic EMSE
 By Cassandra, Nimmi, Yiming, and Jory.
 
 # Dependencies
-* For Python library
+## For Python library
 
 
     pip install stackapi
     
 
-* For Python Notebooks 
-    * conda alternatively if using Jupyter environments
+## For Python Notebooks 
 
 
     pip install sklearn
