@@ -4,7 +4,15 @@ For SENG 480A / UVic EMSE
 By Cassandra, Nimmi, Yiming, and Jory.
 
 # Dependencies
+* For Python library
+
     pip install stackapi
+    
+* For Python Notebooks (use conda alternatively if using Jupyter environments)
+
+    pip install sklearn
+    pip install numpy
+    pip install nltk
     
 That's all for now!
 
