@@ -11,7 +11,9 @@ By Cassandra, Nimmi, Yiming, and Jory.
 * For Python Notebooks (use conda alternatively if using Jupyter environments)
 
     pip install sklearn
+    
     pip install numpy
+    
     pip install nltk
     
 That's all for now!
