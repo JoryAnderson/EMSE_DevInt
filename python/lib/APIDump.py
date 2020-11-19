@@ -7,21 +7,21 @@ import json
 # config_api
 #   Returns object to interact with API. Defaults to 10 queries
 #   with 100 results each (~1000 results).
-def config_api(query_size=100, num_of_queries=10):
+def config_api(num_of_queries=10):
     site = StackAPI('stackoverflow')
     site.key = 'kBC4LfDjAYFLSEFWyrDhdw(( '
-    site.page_size = int(query_size)
+    site.page_size = 100
     site.max_pages = int(num_of_queries)
     return site
 
 
 # get_questions
 #   Returns a dictionary containing questions
-def get_questions(site, to_date=None):
+def get_questions(site, to_date=None, start_page=1):
     if to_date is None:
         return site.fetch(filter='withbody', endpoint='questions')
     else:
-        return site.fetch(filter='withbody', endpoint='questions', todate=to_date)
+        return site.fetch(filter='withbody', endpoint='questions', todate=to_date, page=int(start_page))
 
 
 # get_answers_for_questions
