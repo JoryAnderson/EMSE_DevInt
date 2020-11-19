@@ -27,5 +27,5 @@ appropriately. Returns a dictionary {question_id : list}.
 * Places output data inside data folder, labeled 'nodupe'
 
 ## split_text_code.py
-* For a given JSON file of question posts, split the body in each post into text and code block(s)
+* For a given JSON file of question posts, split the body in each post into text and code block(s).
 * Places output data (title, text, and each code block in seperated files) in data_splitted/ folder where script is executed.
