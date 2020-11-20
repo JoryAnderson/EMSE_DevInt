@@ -2,3 +2,7 @@ sklearn
 numpy
 nltk
 stackapi
+pandas
+seaborn
+wordcloud
+pyLDAvis

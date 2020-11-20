@@ -4,6 +4,9 @@ For SENG 480A / UVic EMSE
 By Cassandra, Nimmi, Yiming, and Jory.
 
 # Dependencies
+    
+    
+    
 ## For Python library
 
 
@@ -20,7 +23,19 @@ By Cassandra, Nimmi, Yiming, and Jory.
 
 
     pip install nltk
+    
+    
+    pip install wordcloud
+    
+    
+    pip install pyLDAvis
+    
 
+ALternatively, try
+
+
+    pip install -r requirements.txt
+    
 
 That's all for now!
 
@@ -53,3 +68,7 @@ That's all for now!
 [JGibbLabeledLDA](http://jgibblda.sourceforge.net/#3._How_to_Program_with_JGibbLDA)
 
 [Refactored JGibbLabeledLDA](https://github.com/myleott/JGibbLabeledLDA)
+
+[Preprocess](http://derekgreene.com/slides/topic-modelling-with-scikitlearn.pdf)
+
+[LDA](https://towardsdatascience.com/end-to-end-topic-modeling-in-python-latent-dirichlet-allocation-lda-35ce4ed6b3e0)
