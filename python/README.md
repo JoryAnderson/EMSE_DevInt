@@ -29,3 +29,12 @@ appropriately. Returns a dictionary {question_id : list}.
 ## split_text_code.py
 * For a given JSON file of question posts, split the body in each post into text and code block(s).
 * Places output data (title, text, and each code block in seperated files) in data_splitted/ folder where script is executed.
+
+## create_csv.py
+* Create a combined csv from the spliited data in data_splitted/ folder.
+* A new csv file is created in data_proceeed/ folder
+
+## tokenize_csv.py
+* combine the tile and text in the combined csv.
+* this combined strings will be preproceesed using the tokenization.py in lib.
+* the prepocessed data will be saved back as a new file togrhter with original data. the new file is also save to data_proceeed/ folder

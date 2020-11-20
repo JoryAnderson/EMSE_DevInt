@@ -41,3 +41,6 @@ An attribute within a question / answer / post
 # Storing Data
 * APIDump has an export_json_to_file(data, file_name) function, which allows you to store a hard copy of the JSON data.
     * file_name is an optional parameter, which will have a time-stamp appended to it when saved.
+    
+# Tockening strings
+* tokenization.py include the wrapper for nltk toolkit for preprocessing data. The most important method is process (title).
