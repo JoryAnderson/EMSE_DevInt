@@ -27,7 +27,8 @@ if __name__ == '__main__':
     # Debug Statements
     print("Number of questions from dataset: ", len(question_data['items']))
     print("Number of questions from question_id list: ", len(question_ids))
-    print("Final Question in Set: " + str(question_ids[len(question_ids)-1]), question_data['items'][len(question_data['items'])-1])
+    print("Final Question in Set: " + str(question_ids[len(question_ids)-1]),
+          question_data['items'][len(question_data['items'])-1])
     gc.collect()
 
     # Get answers using Question Data
@@ -36,4 +37,7 @@ if __name__ == '__main__':
 
     # Combine question/answer information
     important_text = JSONReader.get_combined_qa_list(question_data, answer_data, question_ids)
+
     APIDump.export_json_to_file(answer_data, "answers")
+    if len(sys.argv) == 3:
+        APIDump.export_json_to_file(question_data, "questions")
