@@ -31,7 +31,7 @@ By Cassandra, Nimmi, Yiming, and Jory.
     pip install pyLDAvis
     
 
-ALternatively, try
+Alternatively, try
 
 
     pip install -r requirements.txt
