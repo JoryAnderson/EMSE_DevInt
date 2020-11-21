@@ -1,6 +1,7 @@
 from lib import APIDump
 from lib import JSONReader
 import sys
+import gc
 
 if __name__ == '__main__':
     # Load Question Data, all unique
@@ -17,6 +18,7 @@ if __name__ == '__main__':
     print("Indices: ", start_index, end_index)
     print("Number of questions from dataset: ", len(question_data['items']))
     print("Number of questions from question_id list: ", len(question_ids))
+    gc.collect()
 
     # Get answers using Question Data
     SITE = APIDump.config_api()
