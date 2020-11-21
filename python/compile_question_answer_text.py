@@ -13,6 +13,4 @@ if __name__ == '__main__':
 
     # Combine question/answer information
     important_text = JSONReader.get_combined_qa_list(question_data, answer_data, question_ids)
-    for question_id in important_text:
-        print(question_id)
-        print(important_text.get(question_id))
+    APIDump.export_json_to_file(answer_data, "answers")
