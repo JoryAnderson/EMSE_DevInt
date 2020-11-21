@@ -19,6 +19,7 @@ if __name__ == '__main__':
     print("Indices: ", start_index, end_index)
     print("Number of questions from dataset: ", len(question_data['items']))
     print("Number of questions from question_id list: ", len(question_ids))
+    print("Final Question in Set: " + str(question_ids[len(question_ids)-1]), question_data['items'][len(question_data['items'])-1])
     gc.collect()
 
     # Get answers using Question Data
