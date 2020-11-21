@@ -20,6 +20,8 @@ appropriately. Returns a dictionary {question_id : list}.
     * list is composed as [question title, question_body, [answers]]
 
 * MUST be passed a file path to a .json file.
+* Can be passed an optional second command line argument, specifying a starting index. Will grab
+next 25k questions or until EOF is reached.
 
 ## remove_duplicate_questions.py
 * For a given dataset (given by file path), this keeps one of each question, removing duplicates.
