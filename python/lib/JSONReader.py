@@ -1,3 +1,4 @@
+import gc
 import json
 from collections import defaultdict
 
@@ -53,20 +54,30 @@ def get_question_indices(questions):
 # remove_duplicate_question
 #   Returns a dataset with unique entries (i.e., no more than one instance of any question)
 def remove_duplicate_questions(questions):
-    questions = dict(questions)
     curr_questions = len(questions['items'])
     print("Original number of questions: " + str(curr_questions))
 
+    # Get {question_id : [index1, ...]}
     index_dict = get_question_indices(questions)
+
+    # Slice first index of every question
     for question_id in index_dict:
         index_dict[question_id] = index_dict[question_id][1:]
 
+    # Add duplicate question_ids to one list
     joined_index_list = []
     for index in index_dict.values():
         joined_index_list = joined_index_list + index
 
+    # Deleted duplicate questions
     for index in sorted(joined_index_list, reverse=True):
         del questions['items'][index]
+    gc.collect()
+
+    # Delete excess questions (due to MemoryError), set to 100,000.
+    joined_index_list = [x for x in range(100000, len(questions['items']))]
+    for i in sorted(joined_index_list, reverse=True):
+        del questions['items'][i]
 
     curr_questions = len(questions['items'])
     print("Number of unique questions: " + str(curr_questions))
