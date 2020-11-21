@@ -3,6 +3,10 @@ from lib import JSONReader
 import sys
 import gc
 
+# First argument: File path to data.json
+# Second argument (optional): Specifies a starting index, will grab 25k questions from this index or until
+#                             EOF is reached.
+
 if __name__ == '__main__':
     # Load Question Data, all unique
     question_data = JSONReader.load_json_to_dict(sys.argv[1])
