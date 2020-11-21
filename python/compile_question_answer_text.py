@@ -6,17 +6,21 @@ import gc
 if __name__ == '__main__':
     # Load Question Data, all unique
     question_data = JSONReader.load_json_to_dict(sys.argv[1])
+    question_ids, start_index, end_index = [], None, None
 
-    # Grab next 25k questions from starting index
-    start_index = int(sys.argv[2])
-    end_index = min(start_index + 25000, len(question_data['items']))
+    # Grab next 25k questions from starting index if second argument passed
+    if len(sys.argv) == 3:
+        start_index = int(sys.argv[2])
+        end_index = min(start_index + 25000, len(question_data['items']))
+        question_data['items'] = question_data['items'][start_index:end_index]
 
-    # Modify questions to only include specified 25k questions
-    question_data['items'] = question_data['items'][start_index:end_index]
+        # Debug Statement
+        print("Indices: ", start_index, end_index)
+
+    # Get final list of questions
     question_ids = JSONReader.grab_all_question_ids(question_data)
 
-    # Debug statements
-    print("Indices: ", start_index, end_index)
+    # Debug Statements
     print("Number of questions from dataset: ", len(question_data['items']))
     print("Number of questions from question_id list: ", len(question_ids))
     print("Final Question in Set: " + str(question_ids[len(question_ids)-1]), question_data['items'][len(question_data['items'])-1])
