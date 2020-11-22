@@ -1,70 +1,68 @@
 '''
-Given a JSON file of question posts, split the body in each post
-into text and code block(s), then save title, text, and each code
-block into seperated files.
+Given a JSON file of question posts in argument:
+	* split the body in each post into text and code
+	* remove reserved key words in code
+	* store (question_id, title, text, code) in csv format
 '''
 
 import sys
 import json
-import os
 import re
-
-PATH_OUT = "data_splitted/"
-
-import re
-
-# Remove HTML tags in text
-def remove_tags(text):
-	pat = re.compile(r'<.*?>')
-	return pat.sub('', text)
-
+import pandas as pd
+import reserved_key_words
 
 # Input: the body of a post as a string
 # Output: (a list of code blocks as strings, 
 #          the body with code blocks removed as a string)
 def split(body):
-	pat = re.compile(r"<code>(.+?)<\/code>", flags=re.DOTALL)
-	codes = pat.findall(body) # extraction
-	text = remove_tags(pat.sub('', body)) # removal
-	return text, codes
+	pat_code = re.compile(r"<code>(.+?)<\/code>", flags=re.DOTALL)
+	pat_tag = re.compile(r'<.*?>')
+
+	codes = pat_code.findall(body) # extract code blocks
+	code = '\n'.join(codes) # join into one
+
+	text = pat_code.sub('', body) # remove code blocks from text
+	text = pat_tag.sub('', text) # remove HTML tags
+
+	return text, code
 
 
-def split_questions_in_json(data):
-	os.system("mkdir " + PATH_OUT)
+def process(data, outfile):
+	qids = titles = texts = codes = []
 
-	for item in data["items"]:
-		qid = item["question_id"]
-		title = item["title"]
-		body = item["body"]
+	key_words = reserved_key_words.to_list()
+	pat_key_words = re.compile('|'.join(map(re.escape, key_words))) # for removal
 
-		text, codes = split(body)
+	for i in range(len(data["items"])):
+		if i % 1000 == 0:
+			print(i)
 
-		path = PATH_OUT + str(qid) + '/' # use question_id as directory name
-		os.system("mkdir " + path)
+		post = data["items"][i]
+		qids += [post["question_id"]]
+		titles += [post["title"]]
+		body = post["body"]
 
-		with open(path+"title.txt", 'w') as f:
-			f.write(title)
-		with open(path+"text.txt", 'w') as f:
-			f.write(text)
-		for i in range(len(codes)):
-			with open(path+"code_"+str(i)+".txt", 'w') as f:
-				f.write(codes[i])
+		text, code = split(body)
 
+		code = pat_key_words.sub('', code) # remove key words
 
-def test_split():
-	body = "<p>I want to write some automation to website. Simply filling in forms and simulating clicks on elements. But for some elements JavaScript function click() doesn't work. For example it is on this page: <a href=\"http://www1.plus.pl/bsm/\" rel=\"noreferrer\">http://www1.plus.pl/bsm/</a> If I do click() on \"Wy\u015blij\" button, nothing happens. It is my command:</p>\n\n<pre><code>document.getElementsByClassName('tab-button')[0].click()\n</code></pre>\n\n<p>What is wrong? Why on other elements this function works?</p>\n"
-	text, codes = split(body)
-	print(text)
-	print(codes)
+		texts += [text]
+		codes += [code]
+
+	list_of_tuples = list(zip(qids, titles, texts, codes))
+	df = pd.DataFrame(list_of_tuples, columns=["qid", "title", "text", "code"])
+	df.to_csv(outfile)
 
 
 def main(argv):
 	if len(argv) != 2:
 		print("USAGE: python3 split_text_code.py <JSON_file_path>")
 	else:
-		with open(argv[-1]) as f:
-			split_questions_in_json(json.load(f))
+		infile = argv[-1]
+		outfile = infile[:infile.rfind('.')] + ".csv"
+		with open(infile) as f:
+			process(json.load(f), outfile)
 
 	
 if __name__ == '__main__':
-	main()
+	main(sys.argv)
