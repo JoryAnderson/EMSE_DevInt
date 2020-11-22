@@ -8,47 +8,63 @@ def load_json_to_dict(file):
         return json.load(json_file)
 
 
-def grab_all_question_ids(data):
-    return [data['items'][i]['question_id'] for i in range(0, len(data['items']))]
-
-
-# get_combined_qa_list
-#   Combines question and answer texts into a list of lists. Still requires processing. Returns a dictionary
-#   {question_id : [question_title, question_body [answers, empty if none]]}
-def get_combined_qa_list(question_data, answer_data, question_ids):
-    all_question_answer_text = {}
-
-    for question_id in question_ids:
-        question_text = []
-
-        for i in range(0, len(question_data['items'])):
-            if question_data['items'][i]['question_id'] == question_id:
-                question_text.append(question_data['items'][i]['title'])
-                question_text.append(question_data['items'][i]['body'])
-                break
-
-        answers = []
-        for i in range(0, len(answer_data['items'])):
-            if answer_data['items'][i]['question_id'] == question_id:
-                answers.append(answer_data['items'][i]['body'])
-
-        question_text.append(answers)
-        all_question_answer_text[question_id] = question_text
-
-    return all_question_answer_text
+def grab_flat_question_id_list(questions):
+    return [x['question_id'] for x in questions['items']]
 
 
 # get_question_indices
-#   Get indices for where a question appears in the data set.
+# FOR USE WITH DUPLICATE QUESTIONS
+#   Get indices for where a question appears in the data set. Then slices the first index from each question.
 #   Returns a dict: {question_id : [indices, ...]}
-def get_question_indices(questions):
+def get_duplicate_question_indices(questions):
     index_dict = defaultdict(list)
 
     for question in range(0, len(questions['items'])):
         question_id = questions['items'][question]['question_id']
         index_dict[question_id].append(question)
 
+    # Slice first index of every question
+    for question_id in index_dict:
+        index_dict[question_id] = index_dict[question_id][1:]
+
     return index_dict
+
+
+# Maps all question_ids to the indices used in the question JSON.
+# A dictionary entry looks like: {question_id: index}
+def grab_unique_question_ids_and_indices(question_data):
+    return {question_data['items'][i]['question_id']: i for i in range(0, len(question_data['items']))}
+
+
+# Maps all answer indices from answer JSON to a question id. Allows for easy searching of answers using a question id.
+# A dictionary entry looks like: {question_id: [answer_index1, answer_index2, ...]
+def grab_all_answer_indices(answer_data):
+    result = defaultdict(list)
+    for i in range(0, len(answer_data['items'])):
+        answer = answer_data['items'][i]
+        question_id = answer['question_id']
+        result[question_id].append(i)
+
+    return result
+
+
+# get_combined_qa_list
+#   Combines question and answer texts into a list of lists. Still requires processing. Returns a dictionary
+#   {question_id : [question_title, question_body [answers, empty if none]]}
+def get_combined_qa_list(question_data, answer_data):
+    question_ids = grab_unique_question_ids_and_indices(question_data)
+    all_question_answer_text = {}
+    answer_indices = grab_all_answer_indices(answer_data)
+
+    for question_id in question_ids:
+        question_ind = question_ids[question_id]
+        question = question_data['items'][question_ind]
+        question_text = [question['title'], question['body'],
+                         [answer_data['items'][index]['body'] for index in answer_indices[question_id]]]
+
+        all_question_answer_text[question_id] = question_text
+
+    return all_question_answer_text
 
 
 # remove_duplicate_question
@@ -58,18 +74,14 @@ def remove_duplicate_questions(questions):
     print("Original number of questions: " + str(curr_questions))
 
     # Get {question_id : [index1, ...]}
-    index_dict = get_question_indices(questions)
+    index_dict = get_duplicate_question_indices(questions)
 
-    # Slice first index of every question
-    for question_id in index_dict:
-        index_dict[question_id] = index_dict[question_id][1:]
-
-    # Add duplicate question_ids to one list
+    # Add duplicate question_ids to flat list
     joined_index_list = []
     for index in index_dict.values():
         joined_index_list = joined_index_list + index
 
-    # Deleted duplicate questions
+    # Delete duplicate questions
     for index in sorted(joined_index_list, reverse=True):
         del questions['items'][index]
     gc.collect()
