@@ -33,10 +33,20 @@ next 25k questions or until EOF is reached.
 * Places output data (title, text, and each code block in seperated files) in data_splitted/ folder where script is executed.
 
 ## create_csv.py
-* Create a combined csv from the spliited data in data_splitted/ folder.
-* A new csv file is created in data_proceeed/ folder
+* Given a JSON file of question posts in argument:
+	* split the body in each post into text and code
+	* remove reserved key words in code
+	* store (question_id, title, text, code) in csv format
 
 ## tokenize_csv.py
 * combine the tile and text in the combined csv.
 * this combined strings will be preproceesed using the tokenization.py in lib.
 * the prepocessed data will be saved back as a new file togrhter with original data. the new file is also save to data_proceeed/ folder
+
+## reserved_key_words.py
+* List reserved key words (425) in source code using the infomation in this project:
+   * https://github.com/AnanthaRajuCprojects/Reserved-Key-Words-list-of-various-programming-languages
+
+## map_uname_qid.py
+* Given a JSON file of question posts in argument, return a SQL file that contain a single table of (user name, question id) mapping for statistical purpose
+* For RQ1: distribution of number of questions per questioner
