@@ -9,11 +9,11 @@ def load_json_to_dict(file):
 
 
 def grab_flat_question_id_list(questions):
-    return [x['question_id'] for x in questions['items']]
+    return [question['question_id'] for question in questions['items']]
 
 
 # get_question_indices
-# FOR USE WITH DUPLICATE QUESTIONS
+# FOR USE WITH REMOVING DUPLICATE QUESTIONS
 #   Get indices for where a question appears in the data set. Then slices the first index from each question.
 #   Returns a dict: {question_id : [indices, ...]}
 def get_duplicate_question_indices(questions):
@@ -31,13 +31,15 @@ def get_duplicate_question_indices(questions):
 
 
 # Maps all question_ids to the indices used in the question JSON.
+# You'd probably want to use this after running remove_duplicate_questions
 # A dictionary entry looks like: {question_id: index}
 def grab_unique_question_ids_and_indices(question_data):
     return {question_data['items'][i]['question_id']: i for i in range(0, len(question_data['items']))}
 
 
-# Maps all answer indices from answer JSON to a question id. Allows for easy searching of answers using a question id.
-# A dictionary entry looks like: {question_id: [answer_index1, answer_index2, ...]
+# Maps question ids to answer indices from answer JSON to a . Allows for easy searching of answers  using a question id.
+# Try passing a question_id to the dict and iterate over the index list to quickly find answers in the JSON.
+# A dictionary entry looks like: {question_id: [answer_index1, answer_index2, ...]}
 def grab_all_answer_indices(answer_data):
     result = defaultdict(list)
     for i in range(0, len(answer_data['items'])):
