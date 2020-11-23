@@ -37,6 +37,21 @@ def grab_unique_question_ids_and_indices(question_data):
     return {question_data['items'][i]['question_id']: i for i in range(0, len(question_data['items']))}
 
 
+# Grabs user_ids from a JSON file, then returns a distinct set.
+def grab_unique_user_ids(data):
+    unique_user_ids = []
+    for user_id in [post['owner']['user_id'] for post in data['items']]:
+        if user_id not in unique_user_ids:
+            unique_user_ids.append(user_id)
+    return unique_user_ids
+
+
+def split_list_into_chunks(data, chunk_size):
+    data = [data[i:i + chunk_size] for i in range(0, len(data), chunk_size)]
+    print("Number of chunks: ", len(data), "Size of chunk: ", len(data[0]))
+    return data
+
+
 # Maps question ids to answer indices from answer JSON to a . Allows for easy searching of answers  using a question id.
 # Try passing a question_id to the dict and iterate over the index list to quickly find answers in the JSON.
 # A dictionary entry looks like: {question_id: [answer_index1, answer_index2, ...]}
