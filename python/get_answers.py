@@ -35,15 +35,14 @@ if __name__ == '__main__':
     gc.collect()
 
     # Split questions into chunks of size 100 (due to API limitations)
-    question_ids = [question_ids[i:i + 100] for i in range(0, len(question_ids), 100)]
-    print("Number of chunks: ", len(question_ids), "Size of chunk: ", len(question_ids[0]))
+    question_ids = JSONReader.split_list_into_chunks(question_ids, 100)
 
     # Get answers using Question Data
     SITE = APIDump.config_api(100)
     answer_data = APIDump.get_answers_for_questions(SITE, question_ids[0])
 
     # Get answers in batches and merge
-    for split in question_ids:
+    for split in question_ids[1::]:
         response = APIDump.get_answers_for_questions(SITE, split)
         answer_data['items'].extend(response['items'])
 
