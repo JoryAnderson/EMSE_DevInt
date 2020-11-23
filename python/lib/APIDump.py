@@ -33,7 +33,7 @@ def get_answers_for_questions(site, question_ids):
 # Gets user information from a one or more user ids.
 #   Returns a dictionary containing user information
 def get_users_from_ids(site, user_ids):
-    return site.fetch(filter='!)69Ph0.C7QpzLW2uqg2)FUdUlwkr', endpoint='/users/{ids}', ids=user_ids)
+    return site.fetch(filter='!)69Ph0.C7QpzLW2uqg2)FUdUlwkr', endpoint='users/{ids}', ids=user_ids)
 
 
 def convert_json_to_dict(json_file):
