@@ -67,7 +67,7 @@ def grab_all_answer_indices(answer_data):
 
 # get_combined_qa_list
 #   Combines question and answer texts into a list of lists. Still requires processing. Returns a dictionary
-#   {question_id : [question_title, question_body [answers, empty if none]]}
+#   {question_id : [question_title, question_body, [answers, empty if none]]}
 def get_combined_qa_list(question_data, answer_data):
     question_ids = grab_unique_question_ids_and_indices(question_data)
     all_question_answer_text = {}
