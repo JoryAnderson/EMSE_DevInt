@@ -30,6 +30,21 @@ def get_duplicate_question_indices(questions):
     return index_dict
 
 
+# Similar to above
+def get_duplicate_answer_indices(answers):
+    index_dict = defaultdict(list)
+
+    for answer in range(0, len(answers['items'])):
+        answer_id = answers['items'][answer]['answer_id']
+        index_dict[answer_id].append(answer)
+
+    # Slice first index of every answer
+    for answer_id in index_dict:
+        index_dict[answer_id] = index_dict[answer_id][1:]
+
+    return index_dict
+
+
 # Maps all question_ids to the indices used in the question JSON.
 # You'd probably want to use this after running remove_duplicate_questions
 # A dictionary entry looks like: {question_id: index}
@@ -112,3 +127,34 @@ def remove_duplicate_questions(questions):
     print("Number of unique questions: " + str(curr_questions))
 
     return questions
+
+
+# Similar to above
+def remove_duplicate_answers(answers):
+    curr_answers = len(answers['items'])
+    print("Original number of questions: " + str(curr_answers))
+
+    # Get {answer_id : [index1, ...]}
+    index_dict = get_duplicate_answer_indices(answers)
+
+    # Add duplicate answer_ids to flat list
+    joined_index_list = []
+    for index in index_dict.values():
+        joined_index_list = joined_index_list + index
+
+    # Delete duplicate answers
+    for index in sorted(joined_index_list, reverse=True):
+        del answers['items'][index]
+    gc.collect()
+
+    # # Delete excess answers (due to MemoryError), set to 100,000.
+    # joined_index_list = [x for x in range(100000, len(answers['items']))]
+    # for i in sorted(joined_index_list, reverse=True):
+    #     del answers['items'][i]
+
+    curr_answers = len(answers['items'])
+    print("Number of unique answers: " + str(curr_answers))
+
+    return answers
+
+
