@@ -29,8 +29,11 @@ next 25k questions or until EOF is reached.
 * Places output data inside data folder, labeled 'nodupe'
 
 ## split_text_code.py
-* For a given JSON file of question posts, split the body in each post into text and code block(s).
-* Places output data (title, text, and each code block in seperated files) in data_splitted/ folder where script is executed.
+Given two JSON file for questions and answers in argument:
+	* For each file:
+		* split the body in each post into text and code
+		* remove reserved key words in code
+		* for questions, store (question_id, title, text, code) in a csv file; for answers, store (question_id, text, code) in another csv file
 
 ## create_csv.py
 * Given a JSON file of question posts in argument:
