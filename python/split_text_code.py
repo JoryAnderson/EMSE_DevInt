@@ -14,9 +14,9 @@ import pandas as pd
 import reserved_key_words
 from lib import JSONReader
 
-OUT_QUESTIONS = "questions.csv"
-OUT_ANSWERS = "answers.csv"
-DO_QUESTIONS = False
+OUT_QUESTIONS = "split_questions.csv"
+OUT_ANSWERS = "split_answers.csv"
+DO_QUESTIONS = True
 DO_ANSWERS = True
 
 # Input: the body of a post as a string
@@ -47,7 +47,10 @@ def process(question_data, answer_data):
 
 	if DO_QUESTIONS:
 		print("Processing questions")
-		qids = titles = texts = codes = []
+		qids = []
+		titles = []
+		texts = []
+		codes = []
 
 		i = 0
 		for qid, entry in all_question_answer_text.items():
@@ -58,9 +61,7 @@ def process(question_data, answer_data):
 			qids += [qid]
 			titles += [entry[0]]
 			text, code = split(entry[1])
-
 			code = pat_key_words.sub('', code) # remove key words
-
 			texts += [text]
 			codes += [code]
 
@@ -71,20 +72,22 @@ def process(question_data, answer_data):
 
 	if DO_ANSWERS:
 		print("Processing answers")
-		qids = texts = codes = []
+		qids = []
+		texts = []
+		codes = []
 
 		i = 0
+		# for each question
 		for qid, entry in all_question_answer_text.items():
 			i += 1
 			if i % 1000 == 0:
 				print(i)
 
+			# for each answer to the question
 			for ans in entry[2]:
 				qids += [qid]
 				text, code = split(ans)
-
 				code = pat_key_words.sub('', code) # remove key words
-
 				texts += [text]
 				codes += [code]
 
