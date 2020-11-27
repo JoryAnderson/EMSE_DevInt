@@ -3,7 +3,7 @@ Given two JSON file for questions and answers in argument:
 	* For each file:
 		* split the body in each post into text and code
 		* remove reserved key words in code
-		* for questions, store (question_id, title, text, code) in a csv file;
+		* for questions, store (question_id, title, tags, text, code) in a csv file;
 		  for answers, store (question_id, text, code) in another csv file
 '''
 
@@ -17,7 +17,7 @@ from lib import JSONReader
 OUT_QUESTIONS = "split_questions.csv"
 OUT_ANSWERS = "split_answers.csv"
 DO_QUESTIONS = True
-DO_ANSWERS = True
+DO_ANSWERS = False
 
 # Input: the body of a post as a string
 # Output: (a list of code blocks as strings, 
@@ -40,38 +40,41 @@ def process(question_data, answer_data):
 	key_words = reserved_key_words.to_list()
 	pat_key_words = re.compile('|'.join(map(re.escape, key_words))) # for removal
 
-	# load all the data as a dictionary (use a lot of memory)
-	# {question_id : [question_title, question_body, [answers, empty if none]]}
-	print("Loading data")
-	all_question_answer_text = JSONReader.get_combined_qa_list(question_data, answer_data)
-
 	if DO_QUESTIONS:
 		print("Processing questions")
+
 		qids = []
 		titles = []
+		tags = []
 		texts = []
 		codes = []
 
 		i = 0
-		for qid, entry in all_question_answer_text.items():
+		for question in question_data["items"]:
 			i += 1
 			if i % 1000 == 0:
 				print(i)
 
-			qids += [qid]
-			titles += [entry[0]]
-			text, code = split(entry[1])
+			qids += [question["question_id"]]
+			titles += [question["title"]]
+			tags += [','.join(question["tags"])]
+			text, code = split(question["body"])
 			code = pat_key_words.sub('', code) # remove key words
 			texts += [text]
 			codes += [code]
 
-		list_of_tuples = list(zip(qids, titles, texts, codes))
-		df = pd.DataFrame(list_of_tuples, columns=["qid", "title", "text", "code"])
+		list_of_tuples = list(zip(qids, titles, tags, texts, codes))
+		df = pd.DataFrame(list_of_tuples, columns=["qid", "title", "tags", "text", "code"])
 		df.to_csv(OUT_QUESTIONS)
 
 
 	if DO_ANSWERS:
 		print("Processing answers")
+
+		# load all the data as a dictionary (use a lot of memory)
+		# {question_id : [question_title, question_body, [answers, empty if none]]}
+		all_question_answer_text = JSONReader.get_combined_qa_list(question_data, answer_data)
+
 		qids = []
 		texts = []
 		codes = []
