@@ -33,7 +33,7 @@ Given two JSON file for questions and answers in argument:
 * For each file:
 	* split the body in each post into text and code
 	* remove reserved key words in code
-	* for questions, store (question_id, title, text, code) in a csv file; for answers, store (question_id, text, code) in another csv file
+	* for questions, store (question_id, title, tags, text, code) in a csv file; for answers, store (question_id, text, code) in another csv file
 
 ## create_csv.py
 * Given a JSON file of question posts in argument:
