@@ -58,26 +58,22 @@ def posts_as_percentages(users):
         elif percentage == 1:
             stratified_counts[11] = stratified_counts[11] + 1
 
-    stratified_counts.reverse()
-    x_labels = ["0%", "1%-9%", "10%-19%", "20%-29%", "30%-39%", "40%-49%", "50%-59%", "60%-69%", "70%-79%", "80%-89%",
+    y_labels = ["0%", "1%-9%", "10%-19%", "20%-29%", "30%-39%", "40%-49%", "50%-59%", "60%-69%", "70%-79%", "80%-89%",
                 "90%-99%", "100%"]
-    x_labels.reverse()
-    x_pos = [i for i, _ in enumerate(x_labels)]
+    y_pos = [i for i, _ in enumerate(y_labels)]
 
-    plt.bar(x_pos, stratified_counts)
-    plt.ylim(0, 40000)
-    plt.yticks(np.arange(0, 50000, 10000))
-    plt.xlabel("Percentage of posts that are answers")
-    plt.ylabel("Number of developers")
-    plt.xticks(x_pos, x_labels, rotation='vertical')
+    plt.barh(y_pos, stratified_counts)
+    plt.yticks(y_pos, y_labels)
+    plt.xlabel("Number of developers who have asked a question")
+    plt.ylabel("The proportion of answers in each developer's posts")
 
 
 if __name__ == '__main__':
     users_from_questions = JSONReader.load_json_to_dict('data/users_from_questions.json')
     users_from_answers = JSONReader.load_json_to_dict('data/users_from_answers.json')
 
-    plt.subplot(1, 2, 1)
-    num_posted_answers(users_from_answers)
-    plt.subplot(1, 2, 2)
+    #plt.subplot(1, 2, 1)
+    #num_posted_answers(users_from_answers)
+    #plt.subplot(1, 2, 2)
     posts_as_percentages(users_from_questions)
     plt.show()
