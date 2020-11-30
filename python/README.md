@@ -50,6 +50,6 @@ Given two JSON file for questions and answers in argument:
 * List reserved key words (425) in source code using the infomation in this project:
    * https://github.com/AnanthaRajuCprojects/Reserved-Key-Words-list-of-various-programming-languages
 
-## map_uname_qid.py
-* Given a JSON file of question posts in argument, return a SQL file that contain a single table of (user name, question id) mapping for statistical purpose
-* For RQ1: distribution of number of questions per questioner
+## map_user_to_post.py
+* Given two JSON files of questions and answers in argument, return a SQL file that contain two tables (username, question_id) and (username, answer_id) mapping for statistical purpose (RQ1 & 2: the distribution of number of questions/answers per developer)
+* (Did not use user id since found it does not exist in 768 question posts: 'user_type': 'does_not_exist')
