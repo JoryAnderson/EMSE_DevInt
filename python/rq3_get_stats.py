@@ -62,6 +62,28 @@ def posts_as_percentages(users):
                 "90%-99%", "100%"]
     y_pos = [i for i, _ in enumerate(y_labels)]
 
+    num_of_users_with_answers = 0
+    num_of_users_with_no_answers = stratified_counts[0]
+    less_than_50_percent = 0
+    more_than_50_percent = 0
+
+    for collection in stratified_counts[1:6:]:
+        num_of_users_with_answers = num_of_users_with_answers + collection
+        less_than_50_percent = less_than_50_percent + collection
+
+    for collection in stratified_counts[6::]:
+        num_of_users_with_answers = num_of_users_with_answers + collection
+        more_than_50_percent = more_than_50_percent + collection
+
+    print("Percentage of users with no answers: " +
+          str(num_of_users_with_no_answers/(num_of_users_with_no_answers + num_of_users_with_answers)))
+    print("Num of no-answerers: " + str(num_of_users_with_no_answers))
+    print("Num of answerers: " + str(num_of_users_with_answers))
+    print("Percentage of users with more answers than questions: "
+          + str(more_than_50_percent / (more_than_50_percent + less_than_50_percent)))
+    print("Less than 50% answers: " + str(less_than_50_percent))
+    print("More than 50% answers: " + str(more_than_50_percent))
+
     plt.barh(y_pos, stratified_counts)
     plt.yticks(y_pos, y_labels)
     plt.xlabel("Number of developers who have asked a question")
