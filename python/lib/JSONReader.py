@@ -45,6 +45,20 @@ def get_duplicate_answer_indices(answers):
     return index_dict
 
 
+# Loop once through data
+#   Map {user_id : [indices, ...]}
+def map_users_to_post(data):
+    result = defaultdict(list)
+    for i in range(0, len(data['items'])):
+        answer = data['items'][i]
+
+        if answer['owner']['user_type'] != "does_not_exist":
+            user_id = answer['owner']['user_id']
+            result[user_id].append(i)
+
+    return result
+
+
 # Maps all question_ids to the indices used in the question JSON.
 # You'd probably want to use this after running remove_duplicate_questions
 # A dictionary entry looks like: {question_id: index}
@@ -55,7 +69,7 @@ def grab_unique_question_ids_and_indices(question_data):
 # Grabs user_ids from a JSON file, then returns a distinct set.
 def grab_unique_user_ids(data):
     unique_user_ids = []
-    if 'owner' in data['items']:
+    if 'owner' in data['items'][0]:
         for user in [post['owner'] for post in data['items']]:
             if user['user_type'] != "does_not_exist" and user['user_id'] not in unique_user_ids:
                 unique_user_ids.append(user['user_id'])
@@ -75,11 +89,11 @@ def split_list_into_chunks(data, chunk_size):
 # Maps question ids to answer indices from answer JSON to a . Allows for easy searching of answers  using a question id.
 # Try passing a question_id to the dict and iterate over the index list to quickly find answers in the JSON.
 # A dictionary entry looks like: {question_id: [answer_index1, answer_index2, ...]}
-def grab_all_answer_indices(answer_data):
+def grab_all_indices(answer_data, attribute='question_id'):
     result = defaultdict(list)
     for i in range(0, len(answer_data['items'])):
         answer = answer_data['items'][i]
-        question_id = answer['question_id']
+        question_id = answer[attribute]
         result[question_id].append(i)
 
     return result
@@ -91,7 +105,7 @@ def grab_all_answer_indices(answer_data):
 def get_combined_qa_list(question_data, answer_data):
     question_ids = grab_unique_question_ids_and_indices(question_data)
     all_question_answer_text = {}
-    answer_indices = grab_all_answer_indices(answer_data)
+    answer_indices = grab_all_indices(answer_data)
 
     for question_id in question_ids:
         question_ind = question_ids[question_id]
@@ -161,5 +175,4 @@ def remove_duplicate_answers(answers):
     print("Number of unique answers: " + str(curr_answers))
 
     return answers
-
 
