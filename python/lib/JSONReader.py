@@ -55,9 +55,14 @@ def grab_unique_question_ids_and_indices(question_data):
 # Grabs user_ids from a JSON file, then returns a distinct set.
 def grab_unique_user_ids(data):
     unique_user_ids = []
-    for user in [post['owner'] for post in data['items']]:
-        if user['user_type'] != "does_not_exist" and user['user_id'] not in unique_user_ids:
-            unique_user_ids.append(user['user_id'])
+    if 'owner' in data['items']:
+        for user in [post['owner'] for post in data['items']]:
+            if user['user_type'] != "does_not_exist" and user['user_id'] not in unique_user_ids:
+                unique_user_ids.append(user['user_id'])
+    else:
+        for user in data['items']:
+            if user['user_id'] not in unique_user_ids:
+                unique_user_ids.append(user['user_id'])
     return unique_user_ids
 
 
