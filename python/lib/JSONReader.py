@@ -118,6 +118,26 @@ def get_combined_qa_list(question_data, answer_data):
     return all_question_answer_text
 
 
+# Combines question id and its answers into a dictionary
+# {question_id : [(user_id, answer_body)]}
+def get_answer_list(question_data, answer_data):
+    question_ids = grab_unique_question_ids_and_indices(question_data)
+    answer_indices = grab_all_answer_indices(answer_data)
+    qid_answers = {}
+
+    for question_id in question_ids:
+        answers = []
+        for index in answer_indices[question_id]:
+            if answer_data['items'][index]['owner']['user_type'] == "does_not_exist":
+                uid = None
+            else:
+                uid = answer_data['items'][index]['owner']['user_id']
+            answers += [(uid, answer_data['items'][index]['body'])]
+        qid_answers[question_id] = answers
+
+    return qid_answers
+
+
 # remove_duplicate_question
 #   Returns a dataset with unique entries (i.e., no more than one instance of any question)
 def remove_duplicate_questions(questions):
