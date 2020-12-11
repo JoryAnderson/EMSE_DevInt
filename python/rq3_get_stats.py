@@ -88,7 +88,6 @@ def sampled_answers_proportion(questions_data, answers_data):
 
 
 if __name__ == '__main__':
-
     answers = JSONReader.load_json_to_dict('data/answers_100k_full.json')
     questions = JSONReader.load_json_to_dict('data/nodupe_100k_from_236k.json')
 
