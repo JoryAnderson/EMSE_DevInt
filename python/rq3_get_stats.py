@@ -65,53 +65,8 @@ def stratified_statistics_and_plot(stratified_counts):
     plt.barh(y_pos, stratified_counts)
     plt.yticks(y_pos, y_labels)
     plt.xscale("log")
-    plt.xlabel("Number of developers who have asked a question")
-    plt.ylabel("The proportion of answers in each developer's posts")
-
-
-def num_posted_answers(answers_users):
-    num_posted_answers_per_user = [user['answer_count'] for user in answers_users['items']]
-
-    distinct_answer_counts = sorted(list(set(num_posted_answers_per_user)))
-    num_of_devs = []
-    five_or_more_answers = 0
-    less_than_5_answers = 0
-    for count in distinct_answer_counts:
-        num_of_devs_per_count = num_posted_answers_per_user.count(count)
-        num_of_devs.append(num_of_devs_per_count)
-        if count >= 5:
-            five_or_more_answers = five_or_more_answers + num_of_devs_per_count
-        else:
-            less_than_5_answers = less_than_5_answers + num_of_devs_per_count
-
-    print("Total users who posted answers: " + str(five_or_more_answers + less_than_5_answers))
-    print("Users with 5 or more answers: " + str(five_or_more_answers))
-    print("Users with less than 5 answers: " + str(less_than_5_answers))
-    print("Percentage of users with less than 5 answers: " +
-          str(less_than_5_answers / (five_or_more_answers + less_than_5_answers)))
-
-    plt.xlim(1, 150)
-    plt.ylim(100, 100000)
-    plt.xscale('linear')
-    plt.yscale('log')
-    plt.xlabel("Number of posted answers")
-    plt.ylabel("Number of developers")
-    plt.plot(distinct_answer_counts, num_of_devs)
-
-
-def posts_as_percentages(users):
-    percentages = []
-    for user in users['items']:
-        answer_count = user['answer_count']
-        question_count = user['question_count']
-
-        if (answer_count + question_count) == 0:
-            percentages.append(0)
-        else:
-            percentages.append(answer_count / (answer_count + question_count))
-
-    stratified_counts = stratify_proportions(percentages)
-    stratified_statistics_and_plot(stratified_counts)
+    plt.xlabel("Number of users who have asked a question")
+    plt.ylabel("The proportion of answers in each user's posts")
 
 
 def sampled_answers_proportion(questions_data, answers_data):
@@ -134,15 +89,8 @@ def sampled_answers_proportion(questions_data, answers_data):
 
 if __name__ == '__main__':
 
-    # users_from_questions = JSONReader.load_json_to_dict('data/users_from_questions.json')
-    # users_from_answers = JSONReader.load_json_to_dict('data/users_from_answers.json')
     answers = JSONReader.load_json_to_dict('data/answers_100k_full.json')
     questions = JSONReader.load_json_to_dict('data/nodupe_100k_from_236k.json')
 
     sampled_answers_proportion(questions, answers)
-
-    # plt.subplot(1, 2, 1)
-    # num_posted_answers(users_from_answers)
-    # plt.subplot(1, 2, 2)
-    # posts_as_percentages(users_from_questions)
     plt.show()
