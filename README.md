@@ -1,45 +1,17 @@
 # EMSE_DevInt
 For SENG 480A / UVic EMSE
-
 By Cassandra, Nimmi, Yiming, and Jory.
 
 # Dependencies
+Download the following packages needed for the included python modules and Jupyter notebooks:
+
+    pip install stackapi sklearn numpy nltk pandas seaborn wordcloud pyLDAvis
     
-    
-    
-## For Python library
-
-
-    pip install stackapi
-    
-
-## For Jupyter Notebooks 
-
-
-    pip install sklearn
-
-
-    pip install numpy
-
-
-    pip install nltk
-    
-    
-    pip install wordcloud
-    
-    
-    pip install pyLDAvis
-    
-
 Alternatively, try
-
 
     pip install -r requirements.txt
     
-
-That's all for now!
-
-#  Tentative Requirements
+#  (Rough) Procedural Overview
 1. **Use StackAPI to grab SO data**.
 
     a. Grab maximum questions & answers daily. Do over couple days.
@@ -51,11 +23,9 @@ That's all for now!
     d. Format into input file for JGibbLabeledLDA
 
 2. **Use JGibbLabeledLDA to process data**.
-    * Create Java package within this project?
-    
     * LDA does not label topics. This will need to be done manually.
     
-3. **Additional statistics**.
+3. **Additional statistics on questions, answers, and users**.
 
 # Usage
 [Ad-Hoc Python Scripts](/python/)
