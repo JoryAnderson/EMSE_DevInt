@@ -1,6 +1,10 @@
 # EMSE_DevInt
-For SENG 480A / UVic EMSE
 By Cassandra, Nimmi, Yiming, and Jory.
+
+This research was conducted as part of SENG 480A @ UVic (EMSE). 
+
+[The included PDF](A_Replication_of_An_Empirical_Study_on_Developer_Interactions_in_Stack_Overflow.pdf) 
+presents the motivation, methodology, results, and conclusions of our work and findings.
 
 # Dependencies
 Download the following packages needed for the included python modules and Jupyter notebooks:
