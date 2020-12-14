@@ -24,9 +24,9 @@ Alternatively, try
     
     c. Remove duplicates
     
-    d. Format into input file for JGibbLabeledLDA
+    d. Format into input file for LDA.
 
-2. **Use JGibbLabeledLDA to process data**.
+2. **Use LDA to process data**.
     * LDA does not label topics. This will need to be done manually.
     
 3. **Additional statistics on questions, answers, and users**.
