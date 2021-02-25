@@ -21,7 +21,7 @@ def to_list():
 	# | |  ||  | |
 	# | |__||__| |
 	# |__________|
-	# stairs to heaven...
+	# stairway to heaven...
 	os.chdir(PATH)
 	for file in glob.glob("*.md"):
 		with open(file) as f:
